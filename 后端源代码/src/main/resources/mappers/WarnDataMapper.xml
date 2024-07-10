@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--   命名空间-->
+<mapper namespace="com.wuwei.wuwei.demos.mapper.WarnDataMapper">
+
+
+    <insert id="addWarnData">
+        INSERT INTO WarnData (date, name, address, openid,tag,deviceType)
+        VALUES (#{date}, #{name}, #{address},#{openid},#{tag},#{deviceType});
+    </insert>
+    <select id="getWarnData" resultType="com.wuwei.wuwei.demos.entity.WarnData">
+        select * from WarnData where openid=#{openid}
+    </select>
+</mapper>

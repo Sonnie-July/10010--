@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--   命名空间-->
+<mapper namespace="com.wuwei.wuwei.demos.mapper.DeviceMapper">
+
+    <insert id="addDevice">
+        insert into devices (name,openid,deviceId,pos,video) values (#{name},#{openid},#{deviceId},#{pos},#{video})
+    </insert>
+    <update id="updateDevice">
+        update devices
+        <set>
+            <if test="name!=null">
+                name=#{name},
+<!--                ","别忘了,made-->
+            </if>
+            <if test="pos!=null">
+                `pos`=#{pos}
+            </if>
+        </set>
+<!--        看起来，你正在使用MyBatis的XML映射来执行数据库更新操作。
+            从你给出的SQL语句看，"pos" 是数据库中的一个字段，"pos" 在MySQL中是一个保留字，这可能导致了语法错误。-->
+<!--        你可以尝试在 "pos" 前后使用反引号(`)来避免这个问题。你的代码可以修改为：-->
+        where deviceId=#{deviceId}
+    </update>
+
+    <delete id="deleteDevice">
+        DELETE FROM devices WHERE openid = #{openid} and deviceId = #{deviceId};
+    </delete>
+    <delete id="Bulkdeletion">
+        delete from devices where deviceId in
+        <foreach collection="deleteIds" open="(" close=")" separator="," item="deleteIds">
+            #{deleteIds}
+        </foreach>
+        and openid = #{openid}
+    </delete>
+
+    <select id="getDevices" resultType="com.wuwei.wuwei.demos.entity.Device">
+            select * from devices where openid = #{openid};
+    </select>
+    <select id="getDevice" resultType="com.wuwei.wuwei.demos.entity.Device">
+            select * from devices where  deviceId = #{deviceId} limit 1;
+    </select>
+    <select id="getPortableDevices" resultType="com.wuwei.wuwei.demos.entity.Device">
+        select * from PortableGadgets where openid=#{openid};
+    </select>
+</mapper>

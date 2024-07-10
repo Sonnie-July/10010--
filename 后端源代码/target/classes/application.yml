@@ -1,0 +1,79 @@
+server:
+  port: 8080
+  tomcat:
+    relaxed-query-chars: [ '|','{','}','[',']' ]
+    relaxed-path-chars: [ '|','{','}','[',']' ]
+#    tomcat高版本中,不允许请求中出现'|','{','}','[',']',这里配置一下,让他允许
+    accept-count: 100
+#  server.tomcat.accept-count:等待队列长度，默认100；
+#  当我们的tomcat连接用完，所有的多余的请求会被放到这个等待队列中，若是放满默认的100个还有多余的请求，则会请求报错
+    max-connections: 1000
+#  server.tomcat.max-connections:最大被连接数，默认10000
+
+    threads:
+      max: 150
+#  server.tomcat.max-threads:最大的工作线程数，默认200
+      min-spare: 30
+#  server.tomcat.min-spare-threads:最小的工作线程数，默认10
+    connection-timeout: 1000
+
+spring:
+  datasource:
+    # 连接池的最小空闲数量
+    url: jdbc:mysql://39.101.174.82:3306/try
+    username: zhang
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    #告诉springboot使用哪个连接池,默认是HikariPool
+#    druid:
+#      initial-size: 666
+#      # 初始化时建立物理连接的个数
+#      max-active: 10020
+#      # 连接池最大连接数量
+#      max-wait: 6000000
+#      # 获取连接时最大等待时间，单位毫秒
+#      min-idle: 100000
+
+
+  redis:
+    #Redis服务器地址
+    host: 39.101.174.82
+    #端口
+    port: 6379
+    #使用几号数据库
+    database: 0
+    password: 123456
+#    lettuce:
+#      pool:
+#        max-active: -1 # 连接池最大连接数（使用负值表示没有限制）
+#        max-idle: 10 # 连接池中的最大空闲连接
+#        min-idle: 50 # 连接池中的最小空闲连接
+#        max-wait: 5000ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 500MB
+wx:
+  appid: wx83316b84bef186c3
+  appsecret: 17693a3aec5e0b9cb76081b169f525d7
+mybatis:
+  config-location: classpath:mybatis-config.xml
+superbed:
+  token: 2bfea558c87645b29e54e667f52b8145
+uploadFilePath:
+  linux: /home/test/
+localhost: 39.101.174.82
+
+alioss:
+  endpoint: https://oss-cn-beijing.aliyuncs.com
+  accessKeyId: LTAI5tRAG2sjAS9uVb2zXfB1
+  accessKeySecret: EYtp8GyzlXpOiGwmgnSP9mrXOQwmLf
+  bucketName: aiot-666
+tencentMap:
+  Key: VIIBZ-GVC3B-NYGUF-JG3QX-YIG66-YXB3K
+logging:
+  level:
+    web: fatal
+

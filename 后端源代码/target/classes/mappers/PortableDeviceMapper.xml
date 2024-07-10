@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--   命名空间-->
+<mapper namespace="com.wuwei.wuwei.demos.mapper.PortableDeviceMapper">
+
+    <insert id="addDevice">
+        insert into PortableGadgets (name,openid,deviceId,x1,x2,y1,y2) values (#{name},#{openid},#{deviceId},#{x1},#{x2},#{y1},#{y2})
+    </insert>
+    <update id="updatelatitude">
+        update PortableGadgets set latitude=#{latitude} where deviceId=#{deviceId}
+    </update>
+    <update id="updatelongitude">
+        update PortableGadgets set longitude=#{longitude} where deviceId=#{deviceId}
+    </update>
+    <delete id="deleteDevice">
+        delete from PortableGadgets where openid=#{openid} and deviceId=#{deviceId}
+    </delete>
+    <delete id="PortableBulkdeletion">
+        delete from PortableGadgets where deviceId in
+        <foreach collection="deleteIds" open="(" close=")" separator="," item="deleteIds">
+            #{deleteIds}
+        </foreach>
+        and openid = #{openid}
+    </delete>
+    <select id="getDevices" resultType="com.wuwei.wuwei.demos.entity.Device">
+        select * from PortableGadgets where  openid=#{openid};
+    </select>
+    <select id="getDevice" resultType="com.wuwei.wuwei.demos.entity.Device">
+        select * from PortableGadgets where deviceId=#{deviceId}
+    </select>
+    <!--    <update id="updateDevice">-->
+<!--        update PortableGadgets set name=#{name},pos=#{pos} where deviceId=#{deviceId}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteDevice">-->
+<!--        DELETE FROM PortableGadgets WHERE openid = #{openid} and deviceId = #{deviceId};-->
+<!--    </delete>-->
+
+<!--    <select id="getDevice" resultType="com.wuwei.wuwei.demos.entity.Device">-->
+<!--            select * from PortableGadgets where  deviceId = #{deviceId} limit 1;-->
+<!--    </select>-->
+<!--    <select id="getPortableDevices" resultType="com.wuwei.wuwei.demos.entity.Device">-->
+<!--        select * from PortableGadgets where openid=#{openid};-->
+<!--    </select>-->
+</mapper>
